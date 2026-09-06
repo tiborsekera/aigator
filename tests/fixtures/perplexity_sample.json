@@ -1,0 +1,17 @@
+[
+  {
+    "thread_id": "conv-pplx-004",
+    "title": "PostgreSQL 17 Indexing Features",
+    "created_at": "2026-05-02T16:00:00Z",
+    "entries": [
+      {
+        "query": "What are the new indexing performance improvements in PostgreSQL 17?",
+        "answer": "PostgreSQL 17 introduces improved memory management for VACUUM and B-tree index builds, reducing memory consumption by up to 20x and accelerating bulk indexing operations.",
+        "sources": [
+          {"name": "PostgreSQL Official Docs", "url": "https://www.postgresql.org/docs/17/"},
+          {"name": "Postgres Weekly", "url": "https://postgresweekly.com"}
+        ]
+      }
+    ]
+  }
+]

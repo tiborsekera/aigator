@@ -1,0 +1,45 @@
+[
+  {
+    "id": "conv-chatgpt-001",
+    "title": "Optimizing SQLite FTS5 for Low Memory Systems",
+    "create_time": 1715000000.0,
+    "update_time": 1715000200.0,
+    "mapping": {
+      "node-root": {
+        "id": "node-root",
+        "message": null,
+        "parent": null,
+        "children": ["node-u1"]
+      },
+      "node-u1": {
+        "id": "node-u1",
+        "parent": "node-root",
+        "children": ["node-a1"],
+        "message": {
+          "id": "msg-u1",
+          "author": {"role": "user"},
+          "create_time": 1715000010.0,
+          "content": {
+            "content_type": "text",
+            "parts": ["How do I optimize SQLite FTS5 for low RAM devices without vector embeddings?"]
+          }
+        }
+      },
+      "node-a1": {
+        "id": "node-a1",
+        "parent": "node-u1",
+        "children": [],
+        "message": {
+          "id": "msg-a1",
+          "author": {"role": "assistant"},
+          "create_time": 1715000040.0,
+          "metadata": {"model_slug": "gpt-4o"},
+          "content": {
+            "content_type": "text",
+            "parts": ["To optimize SQLite FTS5 for low memory environments:\n1. Use unicode61 tokenizer with diacritics removal.\n2. Leverage BM25 ranking directly in SQL.\n3. Avoid heavy ONNX vector models if RAM is restricted.\n4. Enable WAL journal mode and normal synchronous mode."]
+          }
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,19 @@
+[
+  {
+    "id": "conv-gemini-003",
+    "title": "Kubernetes Ingress Controllers and Cert-Manager Setup",
+    "created_at": "2026-04-10T09:15:00Z",
+    "turns": [
+      {
+        "author": "user",
+        "text": "How do I configure cert-manager with Let's Encrypt on a k3s cluster?",
+        "timestamp": "2026-04-10T09:15:05Z"
+      },
+      {
+        "author": "gemini",
+        "text": "To configure cert-manager with Let's Encrypt on k3s:\n1. Install cert-manager CRDs via helm.\n2. Create a ClusterIssuer resource specifying the ACME staging or production server.\n3. Annotate your Ingress resource with cert-manager.io/cluster-issuer: letsencrypt-prod.",
+        "timestamp": "2026-04-10T09:15:30Z"
+      }
+    ]
+  }
+]

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 280px;
+      margin: 0;
+      padding: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .status-badge {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #1e293b;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #38bdf8;
+      background: #0284c7;
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: background 0.15s;
+    }
+    .btn:hover {
+      background: #0369a1;
+    }
+    .btn-secondary {
+      background: #1e293b;
+      border-color: #334155;
+      color: #94a3b8;
+    }
+    .btn-secondary:hover {
+      background: #334155;
+      color: #fff;
+    }
+    #msg {
+      font-size: 11px;
+      margin-top: 6px;
+      text-align: center;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span style="font-size:20px;">🐊</span>
+    <div class="title">Aigator Session Sync</div>
+  </div>
+  <div class="status-badge" id="daemonStatus">
+    <span>Daemon (Port 8765):</span>
+    <span id="daemonState">Checking...</span>
+  </div>
+  <button class="btn" id="syncBtn">⚡ Sync Current Chat</button>
+  <label style="display:block;font-size:12px;margin:8px 0;">
+    <input type="checkbox" id="autoSyncInput" checked> Automatically sync visited chats
+  </label>
+  <div style="font-size:11px;color:#94a3b8;margin-bottom:10px;">Captures visible conversations after changes settle. Runs while this tab is visible; stored locally.</div>
+  <button class="btn btn-secondary" id="pairBtn">Connect local daemon</button>
+  <button class="btn btn-secondary" id="openUiBtn">Open Aigator Web UI</button>
+  
+  <details style="margin-top:10px;font-size:11px;color:#94a3b8;cursor:pointer;">
+    <summary style="outline:none;">⚙️ Settings</summary>
+    <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+      <label style="font-size:10px;color:#cbd5e1;">Daemon URL:
+        <input type="text" id="daemonUrlInput" value="http://127.0.0.1:8765" style="width:100%;margin-top:2px;padding:4px 6px;background:#090d16;border:1px solid #334155;color:#fff;border-radius:4px;font-size:11px;">
+      </label>
+      <label style="font-size:10px;color:#cbd5e1;">Auth Token:
+        <input type="password" id="authTokenInput" placeholder="Required: paste local auth token" style="width:100%;margin-top:2px;padding:4px 6px;background:#090d16;border:1px solid #334155;color:#fff;border-radius:4px;font-size:11px;">
+      </label>
+      <button id="saveSettingsBtn" style="padding:4px 8px;background:#334155;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:10px;margin-top:2px;">Save Settings</button>
+    </div>
+  </details>
+
+  <div id="msg"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

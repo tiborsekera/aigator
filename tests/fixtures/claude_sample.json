@@ -1,0 +1,22 @@
+[
+  {
+    "uuid": "conv-claude-002",
+    "name": "Distributed Tracing with OpenTelemetry",
+    "created_at": "2026-03-01T14:00:00Z",
+    "updated_at": "2026-03-01T14:20:00Z",
+    "chat_messages": [
+      {
+        "uuid": "c-msg-1",
+        "sender": "human",
+        "text": "How do I configure OpenTelemetry distributed tracing in a FastAPI application?",
+        "created_at": "2026-03-01T14:00:10Z"
+      },
+      {
+        "uuid": "c-msg-2",
+        "sender": "assistant",
+        "text": "To configure OpenTelemetry in FastAPI:\n1. Initialize TracerProvider and BatchSpanProcessor.\n2. Add OTLPSpanExporter pointing to your collector.\n3. Instrument your FastAPI app using FastAPIInstrumentor.instrument_app(app).",
+        "created_at": "2026-03-01T14:01:00Z"
+      }
+    ]
+  }
+]
