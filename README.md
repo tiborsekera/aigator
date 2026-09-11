@@ -52,7 +52,30 @@ curl -fsSL https://raw.githubusercontent.com/tiborsekera/aigator/main/install.sh
 iex (irm https://raw.githubusercontent.com/tiborsekera/aigator/main/install.ps1)
 ```
 
-The installer verifies Python 3.10+ and SQLite FTS5, provisions the standalone executable in `~/.local/bin/aigator`, and configures your environment with zero external dependencies.
+Install Python 3.10+ first. The installer checks SQLite FTS5 and downloads Aigator;
+there are no third-party Python runtime dependencies. It uses Git when available,
+otherwise curl/tar on Unix or PowerShell ZIP extraction on Windows.
+
+| Platform | Application / browser extension | Launcher |
+| :--- | :--- | :--- |
+| Linux, macOS, WSL2, Termux | `~/.local/share/aigator/app/` (extension in `extension/`) | `~/.local/bin/aigator` |
+| Windows | `%LOCALAPPDATA%\aigator\app\` (extension in `extension\`) | `%LOCALAPPDATA%\aigator\bin\aigator.cmd` |
+
+Unix prints the PATH command for your chosen directory; Windows adds its launcher
+directory to User PATH. Set `AIGATOR_INSTALL_DIR` and `AIGATOR_BIN_DIR` to override
+the locations. Keep the bin directory outside the application directory. On Windows,
+set `AIGATOR_NO_MODIFY_PATH=1` to skip persistent PATH changes. Windows launcher paths
+must be representable in the console code page and cannot contain `%`.
+The launcher uses the Python installation validated at install time; rerun the
+installer if that Python is moved or removed.
+
+**Installation does not start Aigator or configure startup at login.** Run
+`aigator daemon` and leave it running. For automatic browser capture, load the
+extension from the installed application folder and pair it once using the steps
+below. Reload the extension and refresh existing chat tabs after an upgrade.
+WSL2 and Termux install the CLI/daemon; they do not install a browser or extension.
+Connecting a Windows browser to a WSL daemon depends on localhost forwarding.
+Android browser extension support is not supplied or verified.
 
 ---
 
@@ -202,13 +225,13 @@ Navigate to **[http://127.0.0.1:8765](http://127.0.0.1:8765)** in your web brows
 ### Browser Extension (experimental Chrome / Brave)
 1. Open Chrome/Brave and navigate to `chrome://extensions`.
 2. Enable **Developer mode** (top right).
-3. Click **Load unpacked** and select the `extension/` folder inside this repository.
+3. Click **Load unpacked** and select the `extension/` folder inside this repository or the installed application folder listed above.
 4. Start `aigator daemon`, then click **Connect local daemon** in the extension popup. Manual token entry is also available in Settings.
 5. Visit a conversation on ChatGPT, Claude, Gemini, or Perplexity. **Automatic sync is enabled by default after pairing:** visible tabs are checked every five seconds and captured once the text is unchanged across two checks. Known streaming states are skipped. Unchanged text is not sent again; connection failures retry after 30 seconds. Landing pages without conversation IDs are excluded.
-6. Uncheck **Automatically sync visited chats** in the popup to pause. The floating **🐊 Sync** button and popup still support manual capture. Hover over the floating button for the last capture status. Only visible conversation text is captured; this does not download your account history or reliably detect every site's streaming state.
+6. Uncheck **Automatically sync visited chats** in the popup to pause. The floating **🐊 Sync** button and popup still support manual capture. Hover over the floating button for the last capture status. Hidden/background tabs are skipped until visible again. Closing the tab before capture or closing the daemon can leave a chat unsaved. Only rendered conversation text is captured; this does not download your account history or reliably detect every site's streaming state.
 
 ### Userscript Alternative (Tampermonkey / Violentmonkey)
-Install `userscripts/aigator-capture.user.js` in your userscript extension and set the same auth token through its menu before syncing. Browser capture is experimental and captures visible text; collapsed turns, tools, citations, and attachments may be incomplete. Perplexity currently captures one visible question/answer. Firefox packaging is not supplied.
+This alternative requires a manual click; it does not implement automatic sync. Install `userscripts/aigator-capture.user.js` in your userscript extension and set the same auth token through its menu before syncing. Browser capture is experimental and captures visible text; collapsed turns, tools, citations, and attachments may be incomplete. Perplexity currently captures one visible question/answer. Firefox packaging is not supplied.
 
 ---
 

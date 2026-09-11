@@ -188,6 +188,11 @@ async function background() {
 }
 
 async function automaticCapture() {
+  const manifest = JSON.parse(fs.readFileSync('extension/manifest.json', 'utf8'));
+  for (const host of ['chatgpt.com', 'claude.ai', 'gemini.google.com', 'perplexity.ai', 'www.perplexity.ai']) {
+    assert(manifest.host_permissions.includes(`https://${host}/*`));
+    assert(manifest.content_scripts[0].matches.includes(`https://${host}/*`));
+  }
   const dom = new JSDOM('<div data-message-author-role="user">question</div>', {
     url: 'https://chatgpt.com/c/synthetic', runScripts: 'outside-only', pretendToBeVisual: true
   });
@@ -243,6 +248,13 @@ async function automaticCapture() {
   now += 30000;
   await tick();
   assert.equal(requests, 6, 'retry after backoff');
+  Object.defineProperty(w.document, 'visibilityState', {value: 'hidden', configurable: true});
+  now += 30000;
+  await tick(); await tick();
+  assert.equal(requests, 6, 'hidden tabs do not capture');
+  Object.defineProperty(w.document, 'visibilityState', {value: 'visible', configurable: true});
+  await tick();
+  assert.equal(requests, 7, 'capture resumes when tab becomes visible');
   assert.equal(w.document.getElementById('__aigator_toast__'), null, 'automatic sync is quiet');
   dom.window.close();
 }
